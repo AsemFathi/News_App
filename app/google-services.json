@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "982128200499",
+    "firebase_url": "https://news-app-a448e-default-rtdb.firebaseio.com",
+    "project_id": "news-app-a448e",
+    "storage_bucket": "news-app-a448e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982128200499:android:5c488cc4b8a7ad3223cc46",
+        "android_client_info": {
+          "package_name": "com.asem.newsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982128200499-r1bk2k9j38sh1cpf335o1jq8sjviofg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asem.newsapp",
+            "certificate_hash": "5ae6e20f26807202b7d22a583a2e88558a61a2e3"
+          }
+        },
+        {
+          "client_id": "982128200499-rur2ussqsgl90kuarku3167abfq0fogt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asem.newsapp",
+            "certificate_hash": "4fdc38ba950641ff2176d7f58b436cdf135b5487"
+          }
+        },
+        {
+          "client_id": "982128200499-f49cm81sb365evvojg1fevm4e1k6kas5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUkkUayX3aw8GPKKZ_duWjOFY8rdiA6MI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982128200499-5sbon77umfebkl7r3gct8n9tutcrelct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

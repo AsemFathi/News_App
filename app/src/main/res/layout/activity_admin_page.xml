@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E5BEEC"
     tools:context=".AdminPage">
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/calistoga"
         android:text="John Doe"
         android:textSize="18sp"
-        android:layout_marginTop="18dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,8 +27,7 @@
        android:id="@+id/person_photo"
        android:src="@drawable/baseline_person_24"
        android:scaleType="fitCenter"
-       android:layout_marginTop="10dp"
-       />
+       android:layout_marginTop="10dp" />
 
 
 
@@ -45,19 +47,22 @@
 
 
     <TextView
+        android:id="@+id/tvPrev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Previous news"
-        android:id="@+id/tvPrev"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/post_content"
-        />
+        android:fontFamily="@font/bree_serif"
+        android:text="Previous news"
+        app:layout_constraintTop_toBottomOf="@id/post_content" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/showNews"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvPrev"
         android:layout_marginTop="20dp"
+        android:background="#757373"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/showNews" />
+        app:layout_constraintTop_toBottomOf="@id/tvPrev"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -155,11 +155,42 @@ public class UserPage extends AppCompatActivity implements RecyclerInterface , N
             }
         });*/
 
+        auth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        email = auth.getCurrentUser().getEmail();
+        email = email.replaceAll("@gmail.com" , "");
+
+
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.my_drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_menu);
+
+
+        View headerView = navigationView.getHeaderView(0);
+        photo = headerView.findViewById(R.id.userPhoto);
+        username = headerView.findViewById(R.id.nav_user_name);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+             String userName = snapshot.child(email).child("Full Name").getValue().toString();
+             String ima = snapshot.child(email).child("image").getValue().toString();
+
+             Glide.with(UserPage.this)
+                     .load(ima)
+                     .into(photo);
+             username.setText(userName);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(this);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this , drawerLayout , toolbar , R.string.nav_open , R.string.nav_close);

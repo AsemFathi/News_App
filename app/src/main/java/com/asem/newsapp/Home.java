@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,8 +34,7 @@ import java.util.Locale;
 
 
 public class Home extends Fragment implements RecyclerInterface{
-    TextView username;
-    ImageView photo;
+
     RecyclerView recyclerView;
 
     FirebaseAuth auth;
@@ -42,6 +42,7 @@ public class Home extends Fragment implements RecyclerInterface{
     DatabaseReference reference;
     String user;
     String email;
+    ImageButton favourite;
 
 
     StorageReference storageReference;
@@ -64,20 +65,6 @@ public class Home extends Fragment implements RecyclerInterface{
         email = email.replaceAll("@gmail.com" , "");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //load name and photo
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.child(email).child("Full Name").getValue().toString();
-                Log.i(TAG, "onDataChange: Email" + user);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -111,6 +98,7 @@ public class Home extends Fragment implements RecyclerInterface{
                     posts.add(new Posts(timedate, title, des, image, likes, comments,author , authorImage));
                 }
                 recyclerView.setAdapter(new NewsAdapter(getContext(), posts, (RecyclerInterface) getContext()));
+
             }
 
             @Override

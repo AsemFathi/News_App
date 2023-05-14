@@ -50,7 +50,7 @@ public class Comments extends AppCompatActivity {
     List<ModelComment> commentList;
     AdapterComment adapterComment;
 
-    CircleImageView AuthorImage;
+    CircleImageView AuthorImage , SenderImage;
     TextView AuthorName;
     TextView PostTime , Title , Description , Likes , Comments;
     ImageView Image;
@@ -78,6 +78,7 @@ public class Comments extends AppCompatActivity {
         Send = findViewById(R.id.sendComment);
         tit = getIntent().getStringExtra("pid");
         auth = FirebaseAuth.getInstance();
+        SenderImage = findViewById(R.id.commentImg);
         myemail = auth.getCurrentUser().getEmail();
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
         String mail = myemail.replaceAll("@gmail.com" , "");
@@ -88,6 +89,9 @@ public class Comments extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 myname = snapshot.child(mail).child("Full Name").getValue().toString();
                 img = snapshot.child(mail).child("image").getValue().toString();
+                Glide.with(com.asem.newsapp.Comments.this)
+                        .load(img)
+                        .into(SenderImage);
             }
 
             @Override
@@ -95,6 +99,8 @@ public class Comments extends AppCompatActivity {
 
             }
         });
+
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
 
@@ -140,7 +146,6 @@ public class Comments extends AppCompatActivity {
                 Glide.with(Comments.this)
                         .load(authorImage)
                         .into(AuthorImage);
-
 
             }
 

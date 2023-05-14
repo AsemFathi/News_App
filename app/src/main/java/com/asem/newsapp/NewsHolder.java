@@ -38,13 +38,16 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
     Button like , comment;
     FirebaseAuth auth;
     FirebaseUser user;
-
+    boolean found;
     CircleImageView postsAuthorPhoto;
     TextView postsAuthorName, postsPostTime , postsPostTitle , postsPostDescription,
     postsPostLikes , postsPostComments;
     Button LikeBTN, CommentBtn;
     ImageView postsPostImage;
     ImageButton postsMoreButton;
+    private DatabaseReference favoritesRef; // Reference to the "favorites" node in the database
+    private FirebaseAuth firebaseAuth; // Firebase Authentication instance
+
 
     boolean likeClicked = true;
     public NewsHolder(@NonNull View itemView, RecyclerInterface recyclerInterface) {
@@ -70,6 +73,13 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
         fav = itemView.findViewById(R.id.favorite);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        String email = firebaseAuth.getCurrentUser().getEmail();
+        email = email.replaceAll("@gmail.com" , "");
+        favoritesRef = FirebaseDatabase.getInstance().getReference().child("favorites")
+                .child(email); // Assuming you have authenticated the user
+
 
        /* imageButton.setOnClickListener(this);
         like = itemView.findViewById(R.id.like);
@@ -97,12 +107,31 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
                     }
 
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         LikeBTN.setEnabled(true);
                     }
                 });
 
+            }
+        });
+
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String postID = postsPostTitle.getText().toString();
+
+                // Check if the post is already a favorite
+                if (isPostFavorite(postID)) {
+                    // Remove it from favorites
+                    removeFromFavorites(postID);
+                    fav.setImageResource(R.drawable.baseline_favorite_24);
+                } else {
+                    // Add it to favorites
+                    addToFavorites(postID);
+                    fav.setImageResource(R.drawable.baseline_favorite_border_24);
+                }
             }
         });
 
@@ -148,5 +177,35 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
             });
         }
         return false;
+    }
+    private boolean isPostFavorite(String postID) {
+        found = false;
+        favoritesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(postID).exists())
+                    found = true;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return found;
+    }
+
+    // Add a post to favorites for the current user
+    private void addToFavorites(String postID) {
+        // Add the postID under the current user's favorites node in the database
+        // For example:
+        favoritesRef.child(postID).setValue(true);
+    }
+
+    // Remove a post from favorites for the current user
+    private void removeFromFavorites(String postID) {
+        // Remove the postID from the current user's favorites node in the database
+        // For example:
+        favoritesRef.child(postID).removeValue();
     }
 }

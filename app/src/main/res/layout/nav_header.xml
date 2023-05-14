@@ -12,9 +12,9 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/baseline_person_24"
+        android:src="@drawable/baseline_person_24"
         android:scaleType="fitCenter"
-
+        android:id="@+id/userPhoto"
         />
 
     <TextView

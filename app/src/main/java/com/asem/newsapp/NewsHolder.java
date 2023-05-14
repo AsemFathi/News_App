@@ -121,16 +121,16 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
             @Override
             public void onClick(View v) {
                 String postID = postsPostTitle.getText().toString();
-
+                isPostFavorite(postID);
                 // Check if the post is already a favorite
-                if (isPostFavorite(postID)) {
+                if (found){
                     // Remove it from favorites
                     removeFromFavorites(postID);
-                    fav.setImageResource(R.drawable.baseline_favorite_24);
+                    fav.setImageResource(R.drawable.baseline_favorite_border_24);
                 } else {
                     // Add it to favorites
                     addToFavorites(postID);
-                    fav.setImageResource(R.drawable.baseline_favorite_border_24);
+                    fav.setImageResource(R.drawable.baseline_favorite_24);
                 }
             }
         });
@@ -178,22 +178,20 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
         }
         return false;
     }
-    private boolean isPostFavorite(String postID) {
-        found = false;
-        favoritesRef.addValueEventListener(new ValueEventListener() {
+    private void isPostFavorite(String postID) {
+        favoritesRef.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(postID).exists())
-                    found = true;
+                found = snapshot.exists();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle the error if retrieval is unsuccessful
             }
         });
-        return found;
     }
+
 
     // Add a post to favorites for the current user
     private void addToFavorites(String postID) {
@@ -202,10 +200,8 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
         favoritesRef.child(postID).setValue(true);
     }
 
-    // Remove a post from favorites for the current user
     private void removeFromFavorites(String postID) {
-        // Remove the postID from the current user's favorites node in the database
-        // For example:
+
         favoritesRef.child(postID).removeValue();
     }
 }

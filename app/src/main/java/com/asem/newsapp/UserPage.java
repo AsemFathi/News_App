@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -24,6 +26,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +41,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -231,6 +235,13 @@ public class UserPage extends AppCompatActivity implements RecyclerInterface , N
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        int id = item.getItemId();
+
+        if (id == R.id.action_search) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container , new Search()).commit();
+
+        }
+
         if (item.getTitle().equals("Home"))
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container , new Home()).commit();
         if (item.getTitle().equals("My Account"))
@@ -256,4 +267,46 @@ public class UserPage extends AppCompatActivity implements RecyclerInterface , N
     public void onBackPressed() {
 
     }
+    private void openSearchDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Search");
+        EditText searchInput = new EditText(this);
+        builder.setView(searchInput);
+
+        builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String query = searchInput.getText().toString().trim();
+                performSearch(query);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    private void performSearch(String query) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Posts");
+        Query searchQuery = reference.orderByChild("title").equalTo(query);
+
+        searchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Process the search results
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Retrieve the data for each matching item
+                    // and perform any necessary operations
+                    Log.i(TAG, "onDataChange: " + snapshot.child("author").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
+    }
+
+
 }

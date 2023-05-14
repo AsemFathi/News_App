@@ -58,7 +58,7 @@
                     android:layout_height="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/baseline_favorite_24"
+                    android:src="@drawable/baseline_favorite"
                     android:background="@null"
                     android:id="@+id/favorite"
                     app:layout_constraintTop_toTopOf="parent"

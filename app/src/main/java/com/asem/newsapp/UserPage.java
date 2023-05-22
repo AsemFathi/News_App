@@ -76,88 +76,7 @@ public class UserPage extends AppCompatActivity implements RecyclerInterface , N
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
-       /* username = findViewById(R.id.uuser_name);
-        photo = findViewById(R.id.user_photo);
-        recyclerView = findViewById(R.id.userShowNews);
 
-        auth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        reference=FirebaseDatabase.getInstance().getReference().child("Posts");
-        email = auth.getCurrentUser().getEmail();
-        email = email.replaceAll("@gmail.com" , "");
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_menu);
-        navigationView.setNavigationItemSelectedListener(this);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-       /* if (savedInstanceState == null )
-        {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setHomeButtonEnabled(true);
-        }
-        // to make the Navigation drawer icon always appear on the action bar
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
-        //getActionBar().setHomeButtonEnabled(true);
-
-        //load name and photo
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.child(email).child("Full Name").getValue().toString();
-                Log.i(TAG, "onDataChange: Email" + user);
-                username.setText("Asem");
-
-                String url = snapshot.child(email).child("image").getValue().toString();
-                Glide.with(UserPage.this)
-                        .load(url)
-                        .into(photo);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                posts = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    String title = "", des = "", time ="", image = "", likes = "0", comments = "0";
-                    if (dataSnapshot.child("title").exists())
-                        title = dataSnapshot.child("title").getValue().toString();
-                    if (dataSnapshot.child("description").exists())
-                        des = dataSnapshot.child("description").getValue().toString();
-                    if (dataSnapshot.child("time").exists())
-                       time =  dataSnapshot.child("time").getValue().toString();
-                    if (dataSnapshot.child("image").exists())
-                        image = dataSnapshot.child("image").getValue().toString();
-                    if (dataSnapshot.child("likes").exists())
-                        likes = dataSnapshot.child("likes").getValue().toString();
-                    if (dataSnapshot.child("comment").exists())
-                        comments = dataSnapshot.child("comment").getValue().toString();
-
-
-                    Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
-                    calendar.setTimeInMillis(Long.parseLong(time));
-                    String timedate = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
-
-                    posts.add(new Posts(timedate, title, des, image, likes, comments));
-                }
-                recyclerView.setAdapter(new NewsAdapter(UserPage.this, posts, UserPage.this));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
 
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -208,10 +127,6 @@ public class UserPage extends AppCompatActivity implements RecyclerInterface , N
 
         }
 
-
-
-        
-
     }
 
 
@@ -256,8 +171,6 @@ public class UserPage extends AppCompatActivity implements RecyclerInterface , N
             Intent intent = new Intent(UserPage.this , Login.class);
             startActivity(intent);
         }
-
-
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

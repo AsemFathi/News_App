@@ -66,6 +66,7 @@ public class Home extends Fragment implements RecyclerInterface{
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+        //get the posts from firebase
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

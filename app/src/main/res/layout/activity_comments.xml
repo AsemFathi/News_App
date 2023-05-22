@@ -69,12 +69,12 @@
 
                         </LinearLayout>
 
-                        <ImageButton
-                            android:id="@+id/morebtn"
+                        <TextView
+                            android:id="@+id/tempView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:src="@drawable/baseline_more_horiz_24" />
+                            android:text="Temp"
+                            />
 
                     </LinearLayout>
 
@@ -138,7 +138,7 @@
                             android:id="@+id/likeButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="30"
                             android:autoLink="all"
                             android:drawableStart="@drawable/like_svgrepo_com"
                             android:drawableLeft="@drawable/like_svgrepo_com"
@@ -146,14 +146,14 @@
                             android:text="Like" />
 
                         <Button
-                            android:id="@+id/commentButton"
+                            android:id="@+id/locationBTN"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="30"
                             android:drawableStart="@drawable/baseline_message_24"
                             android:drawableLeft="@drawable/baseline_message_24"
                             android:padding="5dp"
-                            android:text="SHARE" />
+                            android:text="Location" />
                     </LinearLayout>
 
                 </LinearLayout>

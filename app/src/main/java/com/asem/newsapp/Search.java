@@ -53,6 +53,7 @@ public class Search extends Fragment {
         reference = FirebaseDatabase.getInstance().getReference().child("Posts");
 
 
+        //get the user text and search by it in the posts title any post contain this text show it
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +87,7 @@ public class Search extends Fragment {
                                     authorImage = dataSnapshot.child("authorImage").getValue().toString();
 
 
+                                //convert time from millis to dd/mm/yyyy hh:mm:aa
                                 Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
                                 calendar.setTimeInMillis(Long.parseLong(time));
                                 String timedate = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
@@ -104,6 +106,8 @@ public class Search extends Fragment {
                 });
             }
         });
+
+        //to search automatically when the user enter any text without press in the button
         if (!search.getText().toString().isEmpty())
         {
             reference.addValueEventListener(new ValueEventListener() {

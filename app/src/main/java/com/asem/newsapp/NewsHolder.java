@@ -81,8 +81,8 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
                 .child(email); // Assuming you have authenticated the user
 
 
-       /* imageButton.setOnClickListener(this);
-        like = itemView.findViewById(R.id.like);
+       imageButton.setOnClickListener(this);
+       /* like = itemView.findViewById(R.id.like);
         comment = itemView.findViewById(R.id.comment);
         likes = itemView.findViewById(R.id.likes);
 */
